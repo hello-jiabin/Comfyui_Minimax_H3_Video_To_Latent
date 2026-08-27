@@ -1,0 +1,2 @@
+# No extra dependencies: torch and comfy are provided by ComfyUI itself.
+# Requires a ComfyUI build with MiniMax H3 support + the H3 video VAE model.

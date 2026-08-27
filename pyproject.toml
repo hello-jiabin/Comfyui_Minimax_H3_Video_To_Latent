@@ -1,0 +1,14 @@
+[project]
+name = "Comfyui_Minimax_H3_Video_To_Latent"
+description = "Encode an existing video into a MiniMax H3 AV latent for tiled upscale / re-sampling workflows."
+version = "1.0.0"
+license = { file = "LICENSE" }
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/hello-jiabin/Comfyui_Minimax_H3_Video_To_Latent"
+
+[tool.comfy]
+PublisherId = "hello-jiabin"
+DisplayName = "MiniMax H3 Video To Latent"
+Icon = ""
