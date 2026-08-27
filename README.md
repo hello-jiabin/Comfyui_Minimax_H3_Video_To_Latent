@@ -1,3 +1,5 @@
+**English** | [简体中文](README_CN.md)
+
 # ComfyUI — MiniMax H3 Video To Latent
 
 A single ComfyUI node that encodes an **existing video file** into the

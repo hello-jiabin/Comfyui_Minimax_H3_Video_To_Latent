@@ -1,3 +1,5 @@
+[English](README.md) | **简体中文**
+
 # ComfyUI — MiniMax H3 Video To Latent（视频转 H3 Latent）
 
 一个独立的 ComfyUI 节点：把**已有的视频文件**编码成 MiniMax-H3 节点所需的
