@@ -1,7 +1,7 @@
 [project]
 name = "Comfyui_Minimax_H3_Video_To_Latent"
 description = "Encode an existing video into a MiniMax H3 AV latent for tiled upscale / re-sampling workflows."
-version = "1.0.0"
+version = "1.1.0"
 license = { file = "LICENSE" }
 dependencies = []
 

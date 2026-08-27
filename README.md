@@ -61,12 +61,16 @@ Then restart ComfyUI.
 | `vae` (in) | VAE | MiniMax H3 **video** VAE (`minimax_h3_video_vae...`). |
 | `latent` (out) | LATENT | H3 AV latent (video + **silent** audio) → upscale/re-sample node. |
 | `frame_count` (out) | INT | Aligned frame count (`17k+5`); wire to the reference node's `length`. |
+| `width` (out) | INT | Source canvas width in px (multiple of 32); wire to the reference node's `width`. |
+| `height` (out) | INT | Source canvas height in px (multiple of 32); wire to the reference node's `height`. |
 
 ## Example wiring
 
 ```
 Load Video ──► Get Video Components ──images──► MiniMax H3 Video To Latent ──latent──────► MMH3 Ultimate Upscale.latent
-                             │                  (vae ◄── H3 video VAE)     └─frame_count─► H3 Reference-to-Video.length
+                             │                  (vae ◄── H3 video VAE)     ├─frame_count─► H3 Reference-to-Video.length
+                             │                                               ├─width──────► H3 Reference-to-Video.width
+                             │                                               └─height─────► H3 Reference-to-Video.height
                              └──audio──────────────────────────────────────────────────► Create Video.audio
 ```
 

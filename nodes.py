@@ -62,15 +62,16 @@ class MiniMaxH3VideoToLatent:
             },
         }
 
-    RETURN_TYPES = ("LATENT", "INT")
-    RETURN_NAMES = ("latent", "frame_count")
+    RETURN_TYPES = ("LATENT", "INT", "INT", "INT")
+    RETURN_NAMES = ("latent", "frame_count", "width", "height")
     FUNCTION = "encode"
     CATEGORY = "MiniMax H3"
     DESCRIPTION = (
         "Encode an existing video's frames into a MiniMax H3 AV latent "
         "(video + silent audio), so an H3 upscale/re-sample node can start from a "
         "video file instead of a first-generation pass. Also outputs the aligned "
-        "frame count (17k+5) for the reference node's length."
+        "frame count (17k+5) for the reference node's length and the source canvas "
+        "width/height (multiples of 32)."
     )
 
     def encode(self, images, vae):
@@ -107,6 +108,10 @@ class MiniMaxH3VideoToLatent:
                 "(minimax_h3_video_vae...), not an image or audio VAE."
             )
 
+        # Canvas size for the reference/conditioning node: multiple of 32.
+        cw = max(32, (w // 32) * 32)
+        ch = max(32, (h // 32) * 32)
+
         audio_t = round(target / FPS * AUDIO_LATENT_FPS)
         audio = torch.zeros(
             [1, AUDIO_LATENT_CHANNELS, 2, audio_t], device=z.device, dtype=z.dtype
@@ -115,10 +120,11 @@ class MiniMaxH3VideoToLatent:
 
         print(
             f"[MiniMaxH3VideoToLatent] {n} frames -> aligned {target} "
-            f"({w}x{h}); video latent {tuple(z.shape)}; silent audio T={audio_t}.",
+            f"({w}x{h}); canvas {cw}x{ch}; video latent {tuple(z.shape)}; "
+            f"silent audio T={audio_t}.",
             flush=True,
         )
-        return (latent, target)
+        return (latent, target, cw, ch)
 
 
 NODE_CLASS_MAPPINGS = {

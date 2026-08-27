@@ -58,12 +58,16 @@ git clone https://github.com/hello-jiabin/Comfyui_Minimax_H3_Video_To_Latent.git
 | `vae`（入） | VAE | MiniMax H3 **视频** VAE（`minimax_h3_video_vae...`）。 |
 | `latent`（出） | LATENT | H3 AV latent（视频 + **静音**音频）→ 接放大/二采节点。 |
 | `frame_count`（出） | INT | 对齐后的帧数（`17k+5`），接参考节点的 `length`。 |
+| `width`（出） | INT | 源画布宽度（像素，32 的倍数），接参考节点的 `width`。 |
+| `height`（出） | INT | 源画布高度（像素，32 的倍数），接参考节点的 `height`。 |
 
 ## 推荐接线
 
 ```
 Load Video ──► Get Video Components ──images──► MiniMax H3 Video To Latent ──latent──────► MMH3 Ultimate Upscale.latent
-                             │                  (vae ◄── H3 视频 VAE)       └─frame_count─► H3 Reference-to-Video.length
+                             │                  (vae ◄── H3 视频 VAE)       ├─frame_count─► H3 Reference-to-Video.length
+                             │                                               ├─width──────► H3 Reference-to-Video.width
+                             │                                               └─height─────► H3 Reference-to-Video.height
                              └──audio──────────────────────────────────────────────────► Create Video.audio
 ```
 
